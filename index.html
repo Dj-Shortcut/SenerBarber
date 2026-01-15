@@ -10,20 +10,26 @@
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Poppins',sans-serif;background:#121212;color:#eee}
+body{
+  font-family:'Poppins',sans-serif;
+  background:#121212;
+  color:#eee;
+  line-height:1.5;
+}
 .container{max-width:480px;margin:0 auto;padding:0 15px}
 
-/* ===== HEADER / PARALLAX ===== */
+/* ===== HEADER + PARALLAX ===== */
 header{
   position:relative;
-  height:280px;
+  height:260px;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
   text-align:center;
-  overflow:hidden;
   color:#fff;
+  overflow:hidden;
+  margin-bottom:30px;
 }
 
 header::before{
@@ -38,14 +44,9 @@ header::before{
   z-index:-1;
 }
 
-header > *{z-index:1;position:relative;text-shadow:0 2px 6px rgba(0,0,0,.7)}
-
-.logo{
-  width:120px;
-  background:#fff;
-  padding:6px;
-  border-radius:12px;
-  margin-bottom:10px;
+header h1,
+header p{
+  text-shadow:0 2px 6px rgba(0,0,0,.7);
 }
 
 /* ===== BUTTON ===== */
@@ -61,20 +62,25 @@ header > *{z-index:1;position:relative;text-shadow:0 2px 6px rgba(0,0,0,.7)}
 }
 
 /* ===== SECTIONS ===== */
-section{margin:30px 0}
-h2{color:#c0392b;margin-bottom:12px}
+section{margin-bottom:30px}
+h2{
+  color:#c0392b;
+  margin-bottom:12px;
+  font-size:1.4rem;
+}
 
 .card{
   background:#1e1e1e;
+  color:#eee;                 /* FIX: expliciet tekstkleur */
   padding:15px;
   border-radius:15px;
   margin-bottom:12px;
 }
 
-/* ===== STATUS ===== */
-.green{color:#27ae60}
-.orange{color:#f39c12}
-.red{color:#e74c3c}
+/* ===== STATUS COLORS ===== */
+.green{color:#27ae60;font-weight:600}
+.orange{color:#f39c12;font-weight:600}
+.red{color:#e74c3c;font-weight:600}
 
 /* ===== MAP ===== */
 iframe{
@@ -85,7 +91,10 @@ iframe{
 }
 
 /* ===== FOOTER ===== */
-footer{text-align:center;margin:30px 0}
+footer{
+  text-align:center;
+  margin-bottom:30px;
+}
 .social{
   display:flex;
   justify-content:center;
@@ -100,11 +109,10 @@ footer{text-align:center;margin:30px 0}
 <div class="container">
 
 <header id="hero">
-  <img src="images/logo.png" alt="The Barber Sener logo" class="logo">
   <h1>The Barber Sener</h1>
   <p>📍 Beverstraat 22, 9400 Ninove</p>
   <p id="open-hours"></p>
-  <a id="wa" class="button" target="_blank">💬 WhatsApp</a>
+  <a id="wa" class="button" target="_blank">💬 Check drukte via WhatsApp</a>
 </header>
 
 <section id="status">
@@ -127,7 +135,8 @@ footer{text-align:center;margin:30px 0}
   <iframe
     loading="lazy"
     referrerpolicy="no-referrer-when-downgrade"
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2519.8951089646092!2d3.927666915888104!3d50.83464637949506!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1sBeverstraat%2022%2C%209400%20Ninove!5e0!3m2!1snl!2sbe!4v1707376000000">
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2519.8951089646092!2d3.927666915888104!3d50.83464637949506!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1sBeverstraat%2022%2C%209400%20Ninove%2C%20Belgium!5e0!3m2!1snl!2sbe!4v1707376000000"
+    allowfullscreen>
   </iframe>
 </section>
 
