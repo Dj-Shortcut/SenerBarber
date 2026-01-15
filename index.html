@@ -5,29 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Barber Sener</title>
 
-<!-- 💈 Barber favicon -->
+<!-- 💈 favicon -->
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💈</text></svg>">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Poppins',sans-serif;background:#121212;color:#eee;line-height:1.5}
+body{font-family:'Poppins',sans-serif;background:#121212;color:#eee}
 .container{max-width:480px;margin:0 auto;padding:0 15px}
 
-/* ===== HEADER ===== */
+/* ===== HEADER / PARALLAX ===== */
 header{
   position:relative;
-  min-height:260px;
+  height:280px;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
   text-align:center;
   margin-bottom:30px;
-  padding:20px;
-  color:#fff;
   overflow:hidden;
+  color:#fff;
 }
 
 header::before{
@@ -36,72 +35,63 @@ header::before{
   inset:0;
   background:
     linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)),
-    url('images/header-bg.jpg') center / cover no-repeat;
-  z-index:-1;
-  transform:scale(1.12);
+    url("images/header-bg.jpg") center / cover no-repeat;
+  transform:translateY(var(--parallax,0px)) scale(1.15);
   will-change:transform;
+  z-index:-1;
 }
 
 header > *{
   position:relative;
   z-index:1;
-}
-
-header h1,header p{
-  text-shadow:0 2px 6px rgba(0,0,0,.7)
+  text-shadow:0 2px 6px rgba(0,0,0,.7);
 }
 
 /* ===== BUTTON ===== */
 .button{
-  display:inline-block;
   background:#c0392b;
   color:#fff;
-  padding:1rem 1.5rem;
+  padding:14px 22px;
+  border-radius:12px;
   text-decoration:none;
   font-weight:700;
-  border-radius:12px;
   margin-top:15px;
-  transition:.2s;
-  box-shadow:0 4px 6px rgba(0,0,0,.2)
+  display:inline-block;
 }
-.button:hover{background:#e74c3c;transform:scale(1.05)}
-.button.pulse{animation:pulse .8s}
-@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
 
 /* ===== SECTIONS ===== */
 section{
   margin-bottom:30px;
   opacity:0;
   transform:translateY(20px);
-  transition:.6s ease
+  transition:.6s ease;
 }
-section.visible{opacity:1;transform:none}
-section.hidden{display:none}
+section.visible{
+  opacity:1;
+  transform:none;
+}
 
-h2{font-size:1.4rem;color:#c0392b;margin-bottom:15px}
+h2{color:#c0392b;margin-bottom:12px}
 
 .status p,
-.service-card{
+.card{
   background:#1e1e1e;
-  border-radius:15px;
   padding:15px;
-  box-shadow:0 4px 10px rgba(0,0,0,.5)
+  border-radius:15px;
 }
 
-.green{color:#27ae60;font-weight:600}
-.orange{color:#f39c12;font-weight:600}
-.red{color:#e74c3c;font-weight:600}
+.green{color:#27ae60}
+.orange{color:#f39c12}
+.red{color:#e74c3c}
 
-.service-card{margin-bottom:15px;transition:.3s}
-.service-card:hover{transform:translateY(-5px);box-shadow:0 8px 20px rgba(0,0,0,.7)}
-.service-card h3{color:#c0392b;margin-bottom:5px}
+.card{margin-bottom:12px}
 
+/* ===== MAP ===== */
 iframe{
   width:100%;
   height:200px;
   border:none;
   border-radius:15px;
-  box-shadow:0 4px 10px rgba(0,0,0,.5)
 }
 
 /* ===== FOOTER ===== */
@@ -109,25 +99,14 @@ footer{
   text-align:center;
   padding-bottom:20px;
 }
-footer a{
-  color:#c0392b;
-  text-decoration:none;
-  font-weight:600;
-}
-.social-links{
+.social{
   display:flex;
   justify-content:center;
-  gap:18px;
+  gap:16px;
   margin-top:10px;
 }
-.social-links img{
+.social img{
   width:28px;
-  height:28px;
-  border-radius:50%;
-  transition:transform .2s;
-}
-.social-links img:hover{
-  transform:scale(1.15);
 }
 </style>
 </head>
@@ -136,13 +115,11 @@ footer a{
 <div class="container">
 
 <header id="hero">
-  <img src="images/logo.jpg" alt="The Barber Sener Logo"
-       style="width:120px;border-radius:12px;margin-bottom:15px;box-shadow:0 4px 10px rgba(0,0,0,.5)">
+  <img src="images/logo.jpg" alt="logo" style="width:120px;border-radius:12px;margin-bottom:10px">
   <h1>The Barber Sener</h1>
-  <p>📍 Beverstraat 22, 9400 Ninove</p>
-  <p>⭐ 4,9 sterren op Maps</p>
+  <p>📍 Beverstraat 22, Ninove</p>
   <p id="open-hours"></p>
-  <a id="whatsapp-button" class="button" target="_blank">💬 Check drukte via WhatsApp</a>
+  <a id="wa" class="button" target="_blank">💬 WhatsApp</a>
 </header>
 
 <section class="status" id="status-section">
@@ -151,38 +128,29 @@ footer a{
 </section>
 
 <section>
-  <h2>Diensten & Prijzen</h2>
-  <div class="service-card"><h3>Knippen</h3><p>€20</p></div>
-  <div class="service-card"><h3>Knippen & Baard</h3><p>€30</p></div>
-  <div class="service-card"><h3>Alleen tondeuse</h3><p>€15</p></div>
-  <div class="service-card"><h3>Harsen (hete wax)</h3><p>€5</p></div>
-  <div class="service-card"><h3>Haar wassen</h3><p>€5</p></div>
-  <div class="service-card"><h3>Onder 10 jaar</h3><p>€15</p></div>
-</section>
-
-<section>
-  <h2>Beste momenten</h2>
-  <p>Druk: vrijdag & zaterdag</p>
-  <p>Rustig: dinsdag–donderdag voormiddag</p>
+  <h2>Diensten</h2>
+  <div class="card">Knippen – €20</div>
+  <div class="card">Knippen & Baard – €30</div>
+  <div class="card">Tondeuse – €15</div>
 </section>
 
 <section>
   <h2>Locatie</h2>
-  <iframe loading="lazy"
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2519.8951089646092!2d3.9276669!3d50.8346463">
+  <iframe
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2519.8951089646092!2d3.927666915888104!3d50.83464637949506!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1sBeverstraat%2022%2C%209400%20Ninove!5e0!3m2!1snl!2sbe!4v1707376000000">
   </iframe>
 </section>
 
 <footer>
   <p>📞 0488 38 38 71</p>
-  <p>⭐ De beste barber van Ninove</p>
-
-  <div class="social-links">
-    <a href="https://www.facebook.com/KAPSALONsener" target="_blank" aria-label="Facebook">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
+  <div class="social">
+    <a href="https://www.facebook.com/KAPSALONsener" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg">
     </a>
-    <a href="https://github.com/Dj-Shortcut" target="_blank" aria-label="GitHub">
-      <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub">
+    <a href="https://github.com/Dj-Shortcut" target="_blank">
+      <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png">
     </a>
   </div>
 </footer>
@@ -190,119 +158,40 @@ footer a{
 </div>
 
 <script>
-/* ===== PARALLAX (SAFE) ===== */
-const hero = document.getElementById("hero");
-window.addEventListener("scroll",()=>{
-  const y = window.scrollY;
-  hero.style.setProperty("--p", y * 0.15 + "px");
-  hero.style.setProperty("--s", 1.12 + y * 0.00015);
-  hero.style.setProperty("--t", `translateY(${y*0.15}px) scale(${1.12 + y*0.00015})`);
-  hero.style.setProperty("--x", "0");
-  hero.style.setProperty("--y", y * 0.15 + "px");
-  hero.querySelector("::before");
-  hero.style.cssText += `--parallax:${y*0.15}px;`;
-  hero.style.setProperty("--bg", y * 0.15 + "px");
-  hero.style.setProperty("--z", y);
-  hero.style.setProperty("--o", y);
-  hero.style.setProperty("--scroll", y);
-  hero.style.setProperty("--shift", y * 0.15 + "px");
-  hero.style.setProperty("--move", y * 0.15 + "px");
-  hero.style.setProperty("--par", y * 0.15 + "px");
-  hero.style.setProperty("--bgY", y * 0.15 + "px");
-  hero.style.setProperty("--bgMove", y * 0.15 + "px");
-  hero.style.setProperty("--bgPos", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgOffset", y * 0.15 + "px");
-  hero.style.setProperty("--offset", y * 0.15 + "px");
-  hero.style.setProperty("--scrollY", y * 0.15 + "px");
-  hero.style.setProperty("--pos", y * 0.15 + "px");
-  hero.style.setProperty("--shiftY", y * 0.15 + "px");
-  hero.style.setProperty("--translate", `translateY(${y*0.15}px) scale(${1.12 + y*0.00015})`);
-  hero.style.setProperty("--bgTransform", `translateY(${y*0.15}px) scale(${1.12 + y*0.00015})`);
-  hero.style.setProperty("--transform", `translateY(${y*0.15}px) scale(${1.12 + y*0.00015})`);
-  hero.style.setProperty("--before-transform", `translateY(${y*0.15}px) scale(${1.12 + y*0.00015})`);
-  hero.style.setProperty("--before", `translateY(${y*0.15}px) scale(${1.12 + y*0.00015})`);
-  hero.style.setProperty("--pseudo", `translateY(${y*0.15}px) scale(${1.12 + y*0.00015})`);
-  hero.style.setProperty("--bgParallax", y * 0.15 + "px");
-  hero.style.setProperty("--bgTranslate", y * 0.15 + "px");
-  hero.style.setProperty("--bgScale", 1.12 + y*0.00015);
-  hero.style.setProperty("--bgStyle", `translateY(${y*0.15}px) scale(${1.12 + y*0.00015})`);
-  hero.style.setProperty("--bgCSS", `translateY(${y*0.15}px) scale(${1.12 + y*0.00015})`);
-  hero.style.setProperty("--bgMoveY", y * 0.15 + "px");
-  hero.style.setProperty("--bgFinal", `translateY(${y*0.15}px) scale(${1.12 + y*0.00015})`);
-  hero.style.setProperty("--bgTransformFinal", `translateY(${y*0.15}px) scale(${1.12 + y*0.00015})`);
-  hero.style.setProperty("--bgTransformReal", `translateY(${y*0.15}px) scale(${1.12 + y*0.00015})`);
-  hero.style.setProperty("--bgAnim", `translateY(${y*0.15}px) scale(${1.12 + y*0.00015})`);
-  hero.style.setProperty("--bg", `translateY(${y*0.15}px) scale(${1.12 + y*0.00015})`);
-  hero.style.setProperty("--style", `translateY(${y*0.15}px) scale(${1.12 + y*0.00015})`);
-  hero.style.setProperty("--final", `translateY(${y*0.15}px) scale(${1.12 + y*0.00015})`);
-  hero.style.setProperty("--bgT", `translateY(${y*0.15}px) scale(${1.12 + y*0.00015})`);
-  hero.style.setProperty("--hero", `translateY(${y*0.15}px) scale(${1.12 + y*0.00015})`);
-  hero.style.setProperty("--bgPar", `translateY(${y*0.15}px) scale(${1.12 + y*0.00015})`);
-  hero.style.setProperty("--bgEffect", `translateY(${y*0.15}px) scale(${1.12 + y*0.00015})`);
-  hero.style.setProperty("--bgScroll", `translateY(${y*0.15}px) scale(${1.12 + y*0.00015})`);
-  hero.style.setProperty("--bgLayer", `translateY(${y*0.15}px) scale(${1.12 + y*0.00015})`);
-  hero.style.setProperty("--bgMotion", `translateY(${y*0.15}px) scale(${1.12 + y*0.00015})`);
-  hero.style.setProperty("--bgMoveFinal", `translateY(${y*0.15}px) scale(${1.12 + y*0.00015})`);
-  hero.style.setProperty("--bgActual", `translateY(${y*0.15}px) scale(${1.12 + y*0.00015})`);
-  hero.style.setProperty("--bgResult", `translateY(${y*0.15}px) scale(${1.12 + y*0.00015})`);
-  hero.style.setProperty("--bgReal", `translateY(${y*0.15}px) scale(${1.12 + y*0.00015})`);
-  hero.style.setProperty("--bgFinalResult", `translateY(${y*0.15}px) scale(${1.12 + y*0.00015})`);
-  hero.style.setProperty("--bgX", "center");
-  hero.style.setProperty("--bgY", y * 0.15 + "px");
-  hero.style.setProperty("--bgPos", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgPosition", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgPosFinal", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgPositionFinal", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgPosReal", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgPositionReal", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgParallaxFinal", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgParallaxReal", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgScrollFinal", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgScrollReal", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgScrollPos", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgScrollPosition", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgScrollPositionFinal", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgScrollPositionReal", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgScrollPositionActual", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgScrollPositionResult", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgScrollPositionDone", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgScrollPositionOK", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgScrollPositionGood", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgScrollPositionSafe", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgScrollPositionClean", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgScrollPositionStable", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgScrollPositionFinalOK", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgScrollPositionPerfect", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgScrollPositionUltimate", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgScrollPositionLegendary", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgScrollPosition🔥", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgScrollPosition💈", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgScrollPositionFinal🔥", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgScrollPositionFinal💈", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgScrollPositionFinal🚀", `center ${y*0.15}px`);
-  hero.style.setProperty("--bgScrollPositionFinalOK🚀", `center ${y*0.15}px`);
-});
-</script>
+/* ===== OPEN STATUS ===== */
+const hours={
+  2:[9,19],3:[9,19],4:[9,19],5:[9,19],6:[9,19]
+};
+const now=new Date();
+const day=now.getDay();
+const hour=now.getHours();
 
-<script>
-/* eenvoudige parallax zonder bugs */
-window.addEventListener("scroll",()=>{
-  const y = window.scrollY * 0.15;
-  document.querySelector("header::before");
-  document.querySelector("header");
-  document.querySelector("header").style.setProperty("--bg", y+"px");
-  document.styleSheets[0];
-});
-</script>
+const openEl=document.getElementById("open-hours");
+const statusEl=document.getElementById("status-text");
+const statusSection=document.getElementById("status-section");
 
-<style>
-header::before{
-  transform: translateY(calc(var(--bg,0px))) scale(1.12);
+if(!hours[day] || hour<hours[day][0] || hour>=hours[day][1]){
+  openEl.textContent="🕒 Vandaag gesloten";
+  statusSection.style.display="none";
+}else{
+  openEl.textContent="🕒 Vandaag open";
+  let txt="🟢 Rustig", cls="green";
+  if(hour>=13 && hour<=17){txt="🔴 Druk";cls="red";}
+  else if(hour>=11){txt="🟠 Normaal";cls="orange";}
+  statusEl.innerHTML=`<span class="${cls}">${txt}</span>`;
 }
-</style>
 
-<script>
-/* reveal */
+/* ===== WHATSAPP ===== */
+document.getElementById("wa").href =
+  "https://wa.me/32488383871?text=Hallo,%20is%20het%20nu%20druk?";
+
+/* ===== PARALLAX (ECHT) ===== */
+const hero=document.getElementById("hero");
+window.addEventListener("scroll",()=>{
+  hero.style.setProperty("--parallax",window.scrollY*0.25+"px");
+});
+
+/* ===== REVEAL ===== */
 document.querySelectorAll("section").forEach(s=>s.classList.add("visible"));
 </script>
 
