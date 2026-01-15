@@ -4,16 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Barber Sener</title>
+
+<!-- 💈 Barber emoji favicon -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💈</text></svg>">
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Poppins',sans-serif;background:#121212;color:#eee;line-height:1.5}
 .container{max-width:480px;margin:0 auto;padding:0 15px}
 
-/* ===== HEADER ===== */
+/* ===== HEADER (BUG-FREE) ===== */
 header{
   position:relative;
-  min-height:250px;
+  z-index:0;
+  min-height:260px;
   display:flex;
   flex-direction:column;
   justify-content:center;
@@ -23,7 +29,6 @@ header{
   padding:20px;
   color:#fff;
   overflow:hidden;
-  z-index:1;
 }
 
 header::before{
@@ -31,37 +36,28 @@ header::before{
   position:absolute;
   inset:0;
   background:
-    linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+    linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)),
     url('images/header-bg.jpg') center / cover no-repeat;
-  border-radius:15px;
-  z-index:0;
-
-  /* 🔥 ECHT UITZOOMEN */
-  transform:scale(1.15);
-  transform-origin:center;
-
-  background-attachment:fixed;
-  animation:fadeInBg 1.5s ease-in-out forwards;
+  z-index:-1;                 /* KEY FIX */
+  transform:scale(1.12);      /* UITGEZOOMD */
+  animation:fadeInBg 1.5s ease forwards;
 }
 
-@keyframes fadeInBg{
-  from{opacity:0}
-  to{opacity:1}
-}
+@keyframes fadeInBg{from{opacity:0}to{opacity:1}}
 
-/* mobiel fix */
 @media(max-width:768px){
-  header::before{
-    transform:scale(1.25);
-    background-attachment:scroll;
-  }
+  header::before{transform:scale(1.25)}
+}
+
+header > *{
+  position:relative;
+  z-index:1;                  /* extra veiligheid */
 }
 
 header h1,header p{
   text-shadow:0 2px 6px rgba(0,0,0,.7)
 }
 
-/* ===== BUTTON ===== */
 .button{
   display:inline-block;
   background:#c0392b;
@@ -76,17 +72,137 @@ header h1,header p{
 }
 .button:hover{background:#e74c3c;transform:scale(1.05)}
 .button.pulse{animation:pulse .8s}
-@keyframes pulse{
-  0%{transform:scale(1)}
-  50%{transform:scale(1.05)}
-  100%{transform:scale(1)}
-}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
 
 /* ===== SECTIONS ===== */
 section{
   margin-bottom:30px;
   opacity:0;
   transform:translateY(20px);
-  transition:all .6s ease-out
+  transition:.6s ease
 }
-section.visible
+section.visible{opacity:1;transform:none}
+section.hidden{display:none}
+
+h2{font-size:1.4rem;color:#c0392b;margin-bottom:15px}
+
+.status p,
+.service-card{
+  background:#1e1e1e;
+  border-radius:15px;
+  padding:15px;
+  box-shadow:0 4px 10px rgba(0,0,0,.5)
+}
+
+.green{color:#27ae60;font-weight:600}
+.orange{color:#f39c12;font-weight:600}
+.red{color:#e74c3c;font-weight:600}
+
+.service-card{margin-bottom:15px;transition:.3s}
+.service-card:hover{transform:translateY(-5px);box-shadow:0 8px 20px rgba(0,0,0,.7)}
+.service-card h3{color:#c0392b;margin-bottom:5px}
+
+iframe{
+  width:100%;
+  height:200px;
+  border:none;
+  border-radius:15px;
+  box-shadow:0 4px 10px rgba(0,0,0,.5)
+}
+
+footer{text-align:center;padding-bottom:20px}
+footer a{color:#c0392b;text-decoration:none;font-weight:600}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+  <img src="images/logo.jpg" alt="The Barber Sener Logo"
+       style="width:120px;border-radius:12px;margin-bottom:15px;box-shadow:0 4px 10px rgba(0,0,0,.5)">
+  <h1>The Barber Sener</h1>
+  <p>📍 Beverstraat 22, 9400 Ninove</p>
+  <p>⭐ 4,9 sterren op Maps</p>
+  <p id="open-hours"></p>
+  <a id="whatsapp-button" class="button" target="_blank">💬 Check drukte via WhatsApp</a>
+</header>
+
+<section class="status" id="status-section">
+  <h2>Huidige status</h2>
+  <p id="status-text"></p>
+</section>
+
+<section>
+  <h2>Diensten & Prijzen</h2>
+  <div class="service-card"><h3>Knippen</h3><p>€20</p></div>
+  <div class="service-card"><h3>Knippen & Baard</h3><p>€30</p></div>
+  <div class="service-card"><h3>Alleen tondeuse</h3><p>€15</p></div>
+  <div class="service-card"><h3>Harsen (hete wax)</h3><p>€5</p></div>
+  <div class="service-card"><h3>Haar wassen</h3><p>€5</p></div>
+  <div class="service-card"><h3>Onder 10 jaar</h3><p>€15</p></div>
+</section>
+
+<section>
+  <h2>Beste momenten</h2>
+  <p>Druk: vrijdag & zaterdag</p>
+  <p>Rustig: dinsdag–donderdag voormiddag</p>
+</section>
+
+<section>
+  <h2>Locatie</h2>
+  <iframe loading="lazy"
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2519.8951089646092!2d3.9276669!3d50.8346463">
+  </iframe>
+</section>
+
+<footer>
+  <p>📞 0488 38 38 71</p>
+  <p>⭐ De beste barber van Ninove</p>
+</footer>
+
+</div>
+
+<script>
+const CONFIG={
+  whatsapp:"32488383871",
+  openHours:{0:null,1:null,2:"09:00-19:00",3:"09:00-19:00",4:"09:00-19:00",5:"09:00-19:00",6:"09:00-19:00"}
+};
+
+const HOLIDAYS_2026=[
+  new Date(2026,0,1),new Date(2026,3,6),new Date(2026,4,1),
+  new Date(2026,4,14),new Date(2026,4,25),new Date(2026,6,21),
+  new Date(2026,7,15),new Date(2026,10,1),new Date(2026,10,11),
+  new Date(2026,11,25)
+];
+
+const now=new Date(),day=now.getDay(),hour=now.getHours();
+const openEl=document.getElementById("open-hours");
+const statusSection=document.getElementById("status-section");
+const statusText=document.getElementById("status-text");
+
+const parse=h=>h?{o:+h.split("-")[0],c:+h.split("-")[1]}:null;
+const today=parse(CONFIG.openHours[day]);
+const isHoliday=HOLIDAYS_2026.some(d=>d.toDateString()===now.toDateString());
+
+if(!today||isHoliday||hour<today.o||hour>=today.c){
+  openEl.textContent="🕒 Vandaag gesloten";
+  statusSection.classList.add("hidden");
+}else{
+  openEl.textContent=`🕒 Vandaag open: ${CONFIG.openHours[day]}`;
+  let s;
+  if(day>=5)s=hour>=13&&hour<=17?["red","🔴 Druk"]:["orange","🟠 Normaal"];
+  else s=hour<11?["green","🟢 Rustig"]:hour<15?["orange","🟠 Normaal"]:["red","🔴 Druk"];
+  statusText.innerHTML=`<span class="${s[0]}">${s[1]}</span>`;
+}
+
+const wa=document.getElementById("whatsapp-button");
+wa.href=`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent("Hallo, is het nu druk?")}`;
+wa.classList.add("pulse");
+setTimeout(()=>wa.classList.remove("pulse"),800);
+
+document.querySelectorAll("section").forEach(s=>s.classList.add("visible"));
+</script>
+
+</body>
+</html>
