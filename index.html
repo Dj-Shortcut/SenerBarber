@@ -5,9 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Barber Sener</title>
 
-<!-- 💈 favicon -->
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💈</text></svg>">
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -24,7 +22,6 @@ header{
   justify-content:center;
   align-items:center;
   text-align:center;
-  margin-bottom:30px;
   overflow:hidden;
   color:#fff;
 }
@@ -36,15 +33,19 @@ header::before{
   background:
     linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)),
     url("images/header-bg.jpg") center / cover no-repeat;
-  transform:translateY(var(--parallax,0px)) scale(1.15);
+  transform:translateY(var(--p,0px)) scale(1.15);
   will-change:transform;
   z-index:-1;
 }
 
-header > *{
-  position:relative;
-  z-index:1;
-  text-shadow:0 2px 6px rgba(0,0,0,.7);
+header > *{z-index:1;position:relative;text-shadow:0 2px 6px rgba(0,0,0,.7)}
+
+.logo{
+  width:120px;
+  background:#fff;
+  padding:6px;
+  border-radius:12px;
+  margin-bottom:10px;
 }
 
 /* ===== BUTTON ===== */
@@ -60,54 +61,38 @@ header > *{
 }
 
 /* ===== SECTIONS ===== */
-section{
-  margin-bottom:30px;
-  opacity:0;
-  transform:translateY(20px);
-  transition:.6s ease;
-}
-section.visible{
-  opacity:1;
-  transform:none;
-}
-
+section{margin:30px 0}
 h2{color:#c0392b;margin-bottom:12px}
 
-.status p,
 .card{
   background:#1e1e1e;
   padding:15px;
   border-radius:15px;
+  margin-bottom:12px;
 }
 
+/* ===== STATUS ===== */
 .green{color:#27ae60}
 .orange{color:#f39c12}
 .red{color:#e74c3c}
 
-.card{margin-bottom:12px}
-
 /* ===== MAP ===== */
 iframe{
   width:100%;
-  height:200px;
+  height:220px;
   border:none;
   border-radius:15px;
 }
 
 /* ===== FOOTER ===== */
-footer{
-  text-align:center;
-  padding-bottom:20px;
-}
+footer{text-align:center;margin:30px 0}
 .social{
   display:flex;
   justify-content:center;
   gap:16px;
   margin-top:10px;
 }
-.social img{
-  width:28px;
-}
+.social img{width:28px}
 </style>
 </head>
 
@@ -115,26 +100,29 @@ footer{
 <div class="container">
 
 <header id="hero">
-  <img src="images/logo.jpg" alt="logo" style="width:120px;border-radius:12px;margin-bottom:10px">
+  <img src="images/logo.png" alt="The Barber Sener logo" class="logo">
   <h1>The Barber Sener</h1>
-  <p>📍 Beverstraat 22, Ninove</p>
+  <p>📍 Beverstraat 22, 9400 Ninove</p>
   <p id="open-hours"></p>
   <a id="wa" class="button" target="_blank">💬 WhatsApp</a>
 </header>
 
-<section class="status" id="status-section">
+<section id="status">
   <h2>Huidige status</h2>
   <p id="status-text"></p>
 </section>
 
-<section>
-  <h2>Diensten</h2>
-  <div class="card">Knippen – €20</div>
-  <div class="card">Knippen & Baard – €30</div>
-  <div class="card">Tondeuse – €15</div>
+<section id="services">
+  <h2>Diensten & Prijzen</h2>
+  <div class="card">✂️ Knippen — €20</div>
+  <div class="card">🧔 Knippen & Baard — €30</div>
+  <div class="card">💈 Alleen tondeuse — €15</div>
+  <div class="card">🔥 Harsen (hete wax) — €5</div>
+  <div class="card">🧼 Haar wassen — €5</div>
+  <div class="card">👶 Onder 10 jaar — €15</div>
 </section>
 
-<section>
+<section id="location">
   <h2>Locatie</h2>
   <iframe
     loading="lazy"
@@ -159,40 +147,31 @@ footer{
 
 <script>
 /* ===== OPEN STATUS ===== */
-const hours={
-  2:[9,19],3:[9,19],4:[9,19],5:[9,19],6:[9,19]
-};
-const now=new Date();
-const day=now.getDay();
-const hour=now.getHours();
-
+const hours={2:[9,19],3:[9,19],4:[9,19],5:[9,19],6:[9,19]};
+const now=new Date(),day=now.getDay(),hour=now.getHours();
 const openEl=document.getElementById("open-hours");
 const statusEl=document.getElementById("status-text");
-const statusSection=document.getElementById("status-section");
 
-if(!hours[day] || hour<hours[day][0] || hour>=hours[day][1]){
+if(!hours[day]||hour<hours[day][0]||hour>=hours[day][1]){
   openEl.textContent="🕒 Vandaag gesloten";
-  statusSection.style.display="none";
+  statusEl.innerHTML="<span class='orange'>⏰ Gesloten</span>";
 }else{
   openEl.textContent="🕒 Vandaag open";
-  let txt="🟢 Rustig", cls="green";
-  if(hour>=13 && hour<=17){txt="🔴 Druk";cls="red";}
-  else if(hour>=11){txt="🟠 Normaal";cls="orange";}
-  statusEl.innerHTML=`<span class="${cls}">${txt}</span>`;
+  let c="green",t="🟢 Rustig";
+  if(hour>=13&&hour<=17){c="red";t="🔴 Druk";}
+  else if(hour>=11){c="orange";t="🟠 Normaal";}
+  statusEl.innerHTML=`<span class='${c}'>${t}</span>`;
 }
 
 /* ===== WHATSAPP ===== */
 document.getElementById("wa").href =
   "https://wa.me/32488383871?text=Hallo,%20is%20het%20nu%20druk?";
 
-/* ===== PARALLAX (ECHT) ===== */
+/* ===== PARALLAX ===== */
 const hero=document.getElementById("hero");
 window.addEventListener("scroll",()=>{
-  hero.style.setProperty("--parallax",window.scrollY*0.25+"px");
+  hero.style.setProperty("--p",window.scrollY*0.25+"px");
 });
-
-/* ===== REVEAL ===== */
-document.querySelectorAll("section").forEach(s=>s.classList.add("visible"));
 </script>
 
 </body>
